@@ -1,0 +1,4 @@
+<view class="pyg_index">
+  <SearchInput></SearchInput>
+  <view>{{name}}</view>
+</view>

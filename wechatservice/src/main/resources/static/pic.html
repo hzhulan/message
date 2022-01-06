@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pudding's Pic</title>
+
+</head>
+<body>
+<style type="text/css">
+    img {
+        width: 100px;
+        height: 120px;
+        margin: 10px 5px;
+    }
+</style>
+<div id="imgContent">
+<!--    <img src="http://106.14.11.239/file/pudding/pudding/img/P80217-110817.jpg"/>-->
+</div>
+</body>
+<script>
+    function getContextPath() {
+        var pathName = document.location.pathname;
+        var index = pathName.substr(1).indexOf("/");
+        var result = pathName.substr(0,index+1);
+        return result;
+    }
+    var ctx = getContextPath();
+</script>
+<script type="text/javascript" src="js/common/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $.ajax({
+        url: ctx + '/file/list',
+        type: 'post',
+        success: function (data) {
+            console.log(data.data);
+            if (data.data) {
+                $.each(data.data, function (index, img) {
+                    var imgHtml = '<img class="photo" src="' + img +'"/>';
+                    $("#imgContent").append(imgHtml);
+                });
+            }
+
+        }
+    })
+
+    $("#imgContent").on('click','.photo', function () {
+        var url = $(this).attr("src");
+        if (url) {
+            window.open(url);
+        } else {
+            console.log("找不到有效链接")
+        }
+    })
+</script>
+
+</html>

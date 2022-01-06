@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pri.hzhu.file.filesys.dao.FileSystemMapper">
+
+    <select id="total" resultType="int">
+        select count(id) from f_file where album_id = #{albumId}
+    </select>
+
+    <select id="list" resultType="pri.hzhu.file.filesys.model.FileInfo">
+        select url, file_name, create_time, insert_time from f_file where album_id = #{albumId} limit #{page.pageSize} offset #{page.offset};
+    </select>
+
+    <insert id="insertFiles">
+        insert into `f_file`(url, file_name, create_time, insert_time, album_id) VALUES
+        <foreach collection="fileList" item="file" separator=",">
+            (#{file.url}, #{file.fileName}, #{file.createTime}, #{file.insertTime}, #{albumId})
+        </foreach>
+    </insert>
+
+    <insert id="insertFile">
+         insert into `f_file`(url, file_name, create_time, insert_time, album_id) VALUES (#{file.url}, #{file.fileName}, #{file.createTime}, #{file.insertTime}, #{albumId})
+    </insert>
+
+    <delete id="deleteFiles">
+        delete from f_file where album_id = #{albumId}
+    </delete>
+
+</mapper>

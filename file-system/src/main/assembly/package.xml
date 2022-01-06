@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <!-- 可自定义，这里指定的是项目环境 -->
+    <id>package</id>
+
+    <!-- 打包的类型，如果有N个，将会打N个类型的包 -->
+    <formats>
+        <format>tar.gz</format>
+        <!--<format>dir</format>-->
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <!--依赖-->
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>${unzip.name}/lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
+    </dependencySets>
+
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/src/main/webapp/WEB-INF</directory>
+            <outputDirectory>${unzip.name}/WEB-INF</outputDirectory>
+        </fileSet>
+
+        <!-- 包含release-note -->
+        <fileSet>
+            <directory>${project.basedir}/src/main/assembly</directory>
+            <outputDirectory>${unzip.name}/</outputDirectory>
+            <includes>
+                <include>globe.common.conf</include>
+                <include>release-note</include>
+                <include>*.sh</include>
+            </includes>
+            <fileMode>0755</fileMode>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+
+        <!--****************************** 模块打包 ******************************-->
+        <!--jar-->
+        <fileSet>
+            <directory>${project.basedir}/target</directory>
+            <outputDirectory>${unzip.name}/bin/</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+        <!--resource-->
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <outputDirectory>${unzip.name}/conf/</outputDirectory>
+        </fileSet>
+        <!--****************************** END 模块打包 ******************************-->
+    </fileSets>
+
+</assembly>

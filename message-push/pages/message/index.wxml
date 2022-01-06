@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view class="container">
+  <button type="default" bindtap="submitMsg">点击订阅模板消息</button>
+</view>
